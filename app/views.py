@@ -88,7 +88,7 @@ class LoginView(JSONWebTokenAPIView):
 
     @staticmethod
     def post(request):
-        import pdb;pdb.set_trace()
+        
         try:
             serializer = JSONWebTokenSerializer(data=request.data)
             if serializer.is_valid():
@@ -119,7 +119,7 @@ class LoginView(JSONWebTokenAPIView):
 
 class LogoutView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
-
+    
     @staticmethod
     def post(request):
         """
@@ -134,10 +134,9 @@ class LogoutView(GenericAPIView):
         except (AttributeError, ObjectDoesNotExist):
             return Response({'status': False},
                             status=status.HTTP_400_BAD_REQUEST)
+# class KeyView(generics.ListAPIView):
+#     permission_classes = (IsAuthenticated,)
 
-class KeyView(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
-
-    serializer_class = KeySerializer
-    queryset = Key.objects.all()   
+#     serializer_class = KeySerializer
+#     queryset = Key.objects.all()   
 
