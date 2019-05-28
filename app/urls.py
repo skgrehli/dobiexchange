@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='login-api'),
     url(r'^logout/$', LogoutView.as_view(), name='logout-api'),
   
-    url(r'^keys/$', KeyView.as_view(), name='sign_in'),
+    # url(r'^keys/$', KeyView.as_view(), name='sign_in'),
     
 
 ]

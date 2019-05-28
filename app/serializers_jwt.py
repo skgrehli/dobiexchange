@@ -41,7 +41,7 @@ class JSONWebTokenSerializer(Serializer):
         return get_username_field()
 
     def validate(self, attrs):
-        
+    
         credentials = {
             self.username_field: attrs.get(self.username_field),
             'password': attrs.get('password')

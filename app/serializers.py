@@ -33,23 +33,24 @@ class UserCreateSerializer(serializers.ModelSerializer):
         
         usrename = validated_data.get('usrename')
         first_name = validated_data.get('first_name')
-        last_name = validated_data.get('last_name')
+        name = validated_data.get('name')
     
         email = validated_data.get('email')
         is_action = False
         is_email_verified = False
         user = User.objects.create(**validated_data)
-        
+        user.set_password(validated_data['password'])
         user.save()
+        
         return user
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'username', 'first_name', 'last_name')
+        fields = ('email', 'password', 'username', 'first_name','name')
 
 
-class KeySerializer(serializers.ModelSerializer):
+# class KeySerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Key
-        fields = ('id', 'keys','secret_key', )
+#     class Meta:
+#         model = Key
+#         fields = ('id', 'keys','secret_key', )
