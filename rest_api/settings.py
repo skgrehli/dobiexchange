@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app',
     'rest_framework',
     'rest_framework.authtoken',
+    'trade',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,7 @@ import datetime
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
@@ -142,3 +143,6 @@ JWT_AUTH = {
 }
 
 
+AUTH_USER_MODEL = "app.User" 
+
+APPEND_SLASH=False

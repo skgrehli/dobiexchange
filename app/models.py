@@ -24,7 +24,7 @@ class Timestamp(models.Model):
 
 # mobile = PhoneNumberField(required=True, country='+91')
 class UserManager(BaseUserManager):
-    def create_user(self, username, email=None, password=None):
+    def create_user(self, username, email, password=None):
         """
         Creates and saves a User with the given email and password.
         """
@@ -42,7 +42,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, username, password):
+    def create_staffuser(self, email, password):
         """
         Creates and saves a staff user with the given username and password.
         """
@@ -74,11 +74,10 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin, Timestamp):
     
-    username = models.CharField(max_length=80,  unique=True)
-    name = models.CharField(max_length=80, blank=True)
-    email = models.EmailField(_('email address'), blank=True, null=True)
+    username = models.CharField(max_length=80,  )
+    email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    # last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    name = models.CharField(_('name'), max_length=30, blank=True)
 
     is_action = models.BooleanField(default=False)
     is_username_verified = models.BooleanField(default=False)
@@ -90,8 +89,8 @@ class User(AbstractBaseUser, PermissionsMixin, Timestamp):
     
     objects = UserManager()
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
         verbose_name = _('user')
@@ -157,3 +156,13 @@ class User(AbstractBaseUser, PermissionsMixin, Timestamp):
         signals.post_save.connect(user_post_save, sender=User)
     #instance.post.save()
 
+
+
+class Key(models.Model):
+
+    access_key =  models.CharField(max_length=250)
+    secret_key  = models.CharField(max_length=250)
+    exchange_name = models.CharField(max_length=250)
+
+    def __str__(self):       
+        return self.access_key

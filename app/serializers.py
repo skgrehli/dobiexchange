@@ -46,11 +46,11 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'username', 'first_name','name')
+        fields = ('id','email', 'password', 'username', 'first_name','name')
 
 
-# class KeySerializer(serializers.ModelSerializer):
+class KeySerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Key
-#         fields = ('id', 'keys','secret_key', )
+    class Meta:
+        model = Key
+        fields = ('id', 'access_key','secret_key','exchange_name' )

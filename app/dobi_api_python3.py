@@ -88,8 +88,8 @@ class DobiAPI:
             print('action : %s, url : %s'%(key, value))
 
 if __name__ == '__main__':
-    ACCESS_KEY :-c6ef0e8daba515a8f37470b7c9d70d7a
-    SECRET_KEY:- 15859b5e05bc210d34ddbd8609cbeb05
+    ACCESS_KEY ='c6ef0e8daba515a8f37470b7c9d70d7a'
+    SECRET_KEY ='15859b5e05bc210d34ddbd8609cbeb05'
 
     api = DobiAPI(ACCESS_KEY, SECRET_KEY)
     api.support_action()
