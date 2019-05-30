@@ -37,8 +37,9 @@ class MyOrder(models.Model):
     price = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000')) 
     created = models.DateTimeField(auto_now_add=True)
     status =models.IntegerField( choices=Status_choice,default='Buy',) 
-    def __str__(self):       
-        return self.order_id
+    market = models.CharField(max_length=5, blank=True, null=True)  
+
+    
 
 
 class Rule(models.Model):
@@ -53,3 +54,11 @@ class Rule(models.Model):
     
     def __str__(self):       
         return self.market
+
+
+class Cencel(models.Model):
+    order_id  = models.ForeignKey(Order, on_delete=models.CASCADE)
+    market = models.CharField(max_length=5, )
+
+    def __str__(self):       
+        return self.market            

@@ -34,7 +34,7 @@ class MyOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MyOrder
-        fields = ('flag','order_id','number','numberdeal','numberover','price','created','status',)
+        fields = ('flag','order_id','number','numberdeal','numberover','price','created','status','market',)
 
 
 class RuleSerializer(serializers.ModelSerializer):
@@ -43,3 +43,8 @@ class RuleSerializer(serializers.ModelSerializer):
         model = Rule
         fields = ('market','price_decimal_limit','number_decimal_limit','min','max','buy_rate','sell_rate')
 
+class CencelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Cencel
+        fields = ('market','order_id')

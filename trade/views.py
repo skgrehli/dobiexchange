@@ -62,6 +62,7 @@ class OrderList(APIView):
 
 
 class MyOrderList(APIView):
+    
     def get(self, request, format=None):
         myorders = MyOrder.objects.all()
         serializer = MyOrderSerializer(myorders, many=True)
@@ -85,6 +86,24 @@ class RuleList(APIView):
 
     def post(self, request, format=None):
         serializer = RuleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': True,
+                             'message': "Added successfully"},
+                            status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+class CencelList(APIView):
+    def get(self, request, format=None):
+        cencels = Cencel.objects.all()
+        serializer = CencelSerializer(cencels, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CencelSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'status': True,
