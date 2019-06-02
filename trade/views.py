@@ -68,7 +68,7 @@ class MyOrderList(APIView):
         # return Response(serializer.data)
         return Response({'status':'1','msg':'success','data': serializer.data})
 
-    # @login_required
+  
     def post(self, request, format=None):
         serializer = MyOrderSerializer(data=request.data)
         if serializer.is_valid():

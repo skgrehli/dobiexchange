@@ -39,8 +39,7 @@ from app.models import *
 from app.serializers import *
 from app.utils import generate_jwt_token
 from app.models import User
-
-
+from rest_framework.authtoken.models import Token
 
 
 
@@ -55,7 +54,7 @@ class RegistrationAPIView(GenericAPIView):
         
         try:
             user_serializer = UserCreateSerializer(data=request.data)
-            
+            # import pdb;pdb.set_trace()
             if user_serializer.is_valid():
                 user_serializer.is_active = False
                 user = user_serializer.save()
@@ -63,6 +62,8 @@ class RegistrationAPIView(GenericAPIView):
                 #send_verification_email.delay(user.pk)
                 current_site = get_current_site(request)
                 
+                token = Token.objects.create(user=user)
+                # print(token.key)
              
                 return Response(data, status=status.HTTP_200_OK)
 
