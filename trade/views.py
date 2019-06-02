@@ -33,20 +33,19 @@ from rest_framework import generics
 #from keys.utils import generate_jwt_token,verify_token,generate_jwt_token_only
 # from app.utils import generate_jwt_token
 # local imports
-
-
+from django.contrib.auth.decorators import login_required
 from trade.serializers import *
 
 from trade.models import Order
 
 
-
-
 class OrderList(APIView):
     def get(self, request, format=None):
+        # import pdb;pdb.set_trace()
         orders = Order.objects.all()
         serializer = OrderSerializer(orders, many=True)
-        return Response(serializer.data)
+        return Response({'status':'1','msg':'success','data': serializer.data})
+        # return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = OrderSerializer(data=request.data)
@@ -60,14 +59,16 @@ class OrderList(APIView):
 
 
 
-
+# 
 class MyOrderList(APIView):
     
     def get(self, request, format=None):
         myorders = MyOrder.objects.all()
         serializer = MyOrderSerializer(myorders, many=True)
-        return Response(serializer.data)
+        # return Response(serializer.data)
+        return Response({'status':'1','msg':'success','data': serializer.data})
 
+    # @login_required
     def post(self, request, format=None):
         serializer = MyOrderSerializer(data=request.data)
         if serializer.is_valid():
@@ -82,7 +83,7 @@ class RuleList(APIView):
     def get(self, request, format=None):
         rules = Rule.objects.all()
         serializer = RuleSerializer(rules, many=True)
-        return Response(serializer.data)
+        return Response({'status':'1','msg':'success','data': serializer.data})
 
     def post(self, request, format=None):
         serializer = RuleSerializer(data=request.data)

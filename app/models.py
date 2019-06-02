@@ -22,7 +22,7 @@ class Timestamp(models.Model):
 
 
 
-# mobile = PhoneNumberField(required=True, country='+91')
+
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
         """
@@ -57,8 +57,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, username, email, password):
-        # import pdb; pdb.set_trace()
-
+    
         """
         Creates and saves a superuser with the given username and password.
         """
@@ -159,7 +158,7 @@ class User(AbstractBaseUser, PermissionsMixin, Timestamp):
 
 
 class Key(models.Model):
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     access_key =  models.CharField(max_length=250)
     secret_key  = models.CharField(max_length=250)
     exchange_name = models.CharField(max_length=250)

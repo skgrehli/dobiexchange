@@ -1,5 +1,6 @@
 from django.db import models
 from decimal import *
+from app.models import Key
 
 # Create your models here.
 Type_choice=(
@@ -22,6 +23,7 @@ class Order(models.Model):
     type = models.CharField(max_length=5,  choices=Type_choice,default='Buy', )     
     
     price = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000')) 
+    
     number= models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000')) 
     market = models.CharField(max_length=5, )    
 
@@ -29,6 +31,7 @@ class Order(models.Model):
         return self.type
 
 class MyOrder(models.Model):
+    access_key = models.ForeignKey(Key, on_delete=models.CASCADE)
     flag  = models.CharField(max_length=5,  choices=Type_choice, ) 
     order_id  = models.ForeignKey(Order, on_delete=models.CASCADE)
     number  = models.IntegerField()
@@ -43,7 +46,7 @@ class MyOrder(models.Model):
 
 
 class Rule(models.Model):
-
+    access_key = models.ForeignKey(Key, on_delete=models.CASCADE)
     market  =models.CharField(max_length=5,)
     price_decimal_limit = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
     number_decimal_limit   = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
