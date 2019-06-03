@@ -18,9 +18,6 @@ from app.models import *
 
 # local imports.
 
-
-
-
 class UserCreateSerializer(serializers.ModelSerializer):
     
     password = serializers.CharField(write_only=True)

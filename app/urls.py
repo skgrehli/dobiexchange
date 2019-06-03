@@ -20,8 +20,6 @@ urlpatterns = [
     url(r'^logout/$', LogoutView.as_view(), name='logout-api'),
   	
     url(r'^keys/$', KeyList.as_view(), name='keys'),
-    
-
     url(r'^keys/(?P<pk>[0-9]+)/$', KeyDetail.as_view()),
 
 ]

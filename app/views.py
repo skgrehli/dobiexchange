@@ -89,7 +89,7 @@ class LoginView(JSONWebTokenAPIView):
 
     @staticmethod
     def post(request):
-        # import pdb;pdb.set_tarce() 
+        
         try:
             serializer = JSONWebTokenSerializer(data=request.data)
             if serializer.is_valid():
