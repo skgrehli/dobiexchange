@@ -38,25 +38,26 @@ from trade.serializers import *
 from trade.authentication import AccessKeyAuthentication
 from rest_framework.decorators import authentication_classes
 from rest_framework.decorators import api_view
-
+from app.models import Key
 
 
 class OrderList(APIView):
-    # @api_view(["GET","POST"])
-    # @authentication_classes((AccessKeyAuthentication, ))
-    def get(self, request, format=None):
-        
-        return Response({'status':'2','msg':'success'})
-        # return Response(serializer.data)
-
+    # import pdb; pdb.set_trace()
+    @api_view(["GET","POST"])
+    @login_required
     
 
     def post(self, request, format=None):
+        queryset = Key.objects.all()
+        key = self.request.query_params.get('access_key', None)
+        if key is not None:
+            queryset = queryset.filter(access_key=access_key)
+        serializer = queryset    
         serializer = OrderSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'status': True,
-                             'message': "Added successfully"},
+            return Response({'status': 1,
+                             'message': "",'data':serializer.data},
                             status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -65,31 +66,40 @@ class OrderList(APIView):
 
 class MyOrderList(APIView):
     @api_view()
-    @authentication_classes(AccessKeyAuthentication, )
-    def get(self, request, format=None):
-        # myorders = MyOrder.objects.all()
-        # serializer = MyOrderSerializer(myorders, many=True)
-        # return Response(serializer.data)
-        # return Response({'status':'1','msg':'success','data': serializer.data})
-        return Response({'status':'1','msg':'success',})
+    @login_required
+    def get_queryset(self):
+        data = OrderedDict()
+        queryset = Key.objects.all()
+
+        
+        data['key'] = self.request.query_params.get('access_key',)
+        data['order_id']= self.request.query_params.get('order_id')
+        data['number']= self.request.query_params.get('number')
+        data['numberdeal'] = self.request.query_params.get('numberdeal')
+        data['price ']= self.request.query_params.get('price')
+        data['created'] = self.request.query_params.get('created')
+        data['status ']= self.request.query_params.get('status')
+        data['market ']= self.request.query_params.get('market') 
+        result = data
+        return Response({'status':'1','msg':'success','data':result })
 
     
-    def post(self, request, format=None):
-        serializer = MyOrderSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'status': True,
-                             'message': "Added successfully"},
-                            status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
+    
 class RuleList(APIView):
     def get(self, request, format=None):
-        rules = Rule.objects.all()
-        serializer = RuleSerializer(rules, many=True)
-        return Response({'status':'1','msg':'success','data': serializer.data})
-
+        queryset = Key.objects.all()
+        data['key'] = self.request.query_params.get('access_key',)
+        data['price_decimal_limit']= self.request.query_params.get('price_decimal_limit')
+        data['number_decimal_limit']= self.request.query_params.get('number_decimal_limit')
+        data['min'] = self.request.query_params.get('min')
+        data['max ']= self.request.query_params.get('price')
+        data['buy_rate'] = self.request.query_params.get('buy_rate')
+        data['sell_rate ']= self.request.query_params.get('sell_rate')
+        data['market ']= self.request.query_params.get('market')
+       
+        
+        result = data
+        return Response({'status':'1','msg':'success','data':result })
     def post(self, request, format=None):
         serializer = RuleSerializer(data=request.data)
         if serializer.is_valid():
@@ -102,17 +112,17 @@ class RuleList(APIView):
 
 
 
-class CencelList(APIView):
-    def get(self, request, format=None):
-        cencels = Cencel.objects.all()
-        serializer = CencelSerializer(cencels, many=True)
-        return Response(serializer.data)
+# class CencelList(APIView):
+#     def get(self, request, format=None):
+#         cencels = Cencel.objects.all()
+#         serializer = CencelSerializer(cencels, many=True)
+#         return Response(serializer.data)
 
-    def post(self, request, format=None):
-        serializer = CencelSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'status': True,
-                             'message': "Added successfully"},
-                            status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     def post(self, request, format=None):
+#         serializer = CencelSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'status': True,
+#                              'message': "Added successfully"},
+#                             status=status.HTTP_200_OK)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -24,26 +24,31 @@ from trade.models import *
 
 class OrderSerializer(serializers.ModelSerializer):
 
+    id = serializers.IntegerField()
+    type = serializers.CharField(max_length=50)
+    market = serializers.IntegerField()
+    price = serializers.DecimalField(max_digits=4, decimal_places=4)
+
+    number = serializers.IntegerField()
     class Meta:
-       
-        # fields = ('id', 'type','price','market' ,'number')
+        
         fields = ('id', 'type','price','market' ,'number')
 
 
-class MyOrderSerializer(serializers.ModelSerializer):
+# class MyOrderSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        fields = ('flag','order_id','number','numberdeal','numberover','price','created','status','market',)
+#     class Meta:
+#         fields = ('flag','order_id','number','numberdeal','numberover','price','created','status','market',)
 
 
-class RuleSerializer(serializers.ModelSerializer):
+# class RuleSerializer(serializers.ModelSerializer):
 
-    class Meta:
+#     class Meta:
        
-        fields = ('market','price_decimal_limit','number_decimal_limit','min','max','buy_rate','sell_rate')
+#         fields = ('market','price_decimal_limit','number_decimal_limit','min','max','buy_rate','sell_rate')
 
-class CencelSerializer(serializers.ModelSerializer):
+# class CencelSerializer(serializers.ModelSerializer):
 
-    class Meta:
+#     class Meta:
        
-        fields = ('market','order_id')
+#         fields = ('market','order_id')
