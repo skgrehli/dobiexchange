@@ -2,7 +2,7 @@ certifi==2019.3.9
 chardet==3.0.4
 Django==2.2.1
 django-restframework==0.0.1
-djangorestframework==3.9.0
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 idna==2.8
 PyJWT==1.7.1
